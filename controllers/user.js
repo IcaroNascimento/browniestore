@@ -40,7 +40,7 @@ exports.signin = (request, response) => {
 
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 		//persist the token as 't' in cookie with expiry date
-		res.cookie('t', token, { expire: new Date() + 9999 });
+		response.cookie('t', token, { expire: new Date() + 9999 });
 		//return response with user and token to frontend client
 		const { _id, name, email, role } = user;
 		return response.json({ token, user: { _id, email, name, role } });
