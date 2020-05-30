@@ -10,7 +10,7 @@ dotenv.config();
 
 //import routes
 const authRoutes = require('./routes/auth');
-
+const userRoutes = require('./routes/user');
 //app
 const app = express();
 
@@ -35,12 +35,12 @@ app.use(expressValidator());
 
 //routes middlewares
 app.use('/api', authRoutes);
+app.use('/api', userRoutes);
 
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
-	console.log(
-		`Server is running on port ${port} 
+	console.log(`Server is running on port ${port} 
 Click here http://localhost:8000/api to entry point or put this url in your browser`
-	);
+    );
 });
