@@ -4,12 +4,11 @@ const router = express.Router();
 const { create } = require('../controllers/product');
 const { requireSignin, isAuth, isAdmin } = require('../controllers/auth');
 const { userById } = require('../controllers/user');
-const { userSignupValidator } = require('../validator');
 
 router.post(
-    '/product/create/:userID', 
-    userSignupValidator,
-    isAdmin,
+    '/product/create/:userId', 
+    requireSignin,
+    isAuth,
     isAdmin,
     create
 );

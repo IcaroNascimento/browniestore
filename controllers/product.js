@@ -6,7 +6,7 @@ const { errorHandler } = require('../helpers/dbErrorHandler');
 
 exports.create = (request, response) => {
 	let form = new formidable.IncomingForm();
-	form.KeepExtensions = true;
+	form.keepExtensions = true;
 	form.parse(request, (error, fields, files) => {
 		if (error) {
 			return response.status(400).json({
