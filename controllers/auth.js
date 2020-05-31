@@ -38,7 +38,7 @@ exports.signin = (request, response) => {
 		}
 		//generated  a signed token with user id and secret
 
-		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+		const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
 		//persist the token as 't' in cookie with expiry date
 		response.cookie('t', token, { expire: new Date() + 9999 });
 		//return response with user and token to frontend client
@@ -56,3 +56,22 @@ exports.requireSignin = expressJwt({
 	secret: process.env.JWT_SECRET,
 	userProperty: 'auth'
 });
+
+exports.isAuth = (request, response, next) => {
+	let user = request.profile && request.auth && request.profile._id == request.auth._id;
+	if (!user) {
+		return response.status(403).json({
+			error: 'Access denied'
+		});
+	}
+	next();
+};
+
+exports.isAdmin = (request, response, next) => {
+	if (request.profile.role === 0) {
+		return response.status(403).json({
+			error: 'Admin resource! Access denied'
+		});
+	}
+	next();
+};
