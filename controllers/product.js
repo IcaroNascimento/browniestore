@@ -31,9 +31,9 @@ exports.create = (request, response) => {
 			});
 		}
 
-		const { name, description, price, quantity, photo, shipping } = fields;
+		const { name, description, price, quantity, shipping } = fields;
 
-		if (!name || !description || !price || !quantity || !photo || !shipping) {
+		if (!name || !description || !price || !quantity || !shipping) {
 			return response.status(400).json({
 				error: 'All fields are required'
 			});
@@ -58,6 +58,20 @@ exports.create = (request, response) => {
 				});
 			}
 			response.json(result);
+		});
+	});
+};
+
+exports.remove = (request, response) => {
+	let product = request.product;
+	product.remove((error, deletedProduct) => {
+		if (error) {
+			return response.status(400).json({
+				error: errorHandler(error)
+			});
+		}
+		response.json({
+			message: 'Product deleted successfully'
 		});
 	});
 };
