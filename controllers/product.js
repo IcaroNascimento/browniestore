@@ -119,22 +119,29 @@ exports.update = (request, response) => {
 };
 
 exports.list = (request, response) => {
-	let order = request.query.order ? request.query.order : 'asc'
-	let sortBy = request.query.sortBy ? request.query.sortBy : '_id'
-	let limit = request.query.limit ? parseInt(request.query.limit) : 6
+	let order = request.query.order ? request.query.order : 'asc';
+	let sortBy = request.query.sortBy ? request.query.sortBy : '_id';
+	let limit = request.query.limit ? parseInt(request.query.limit) : 6;
 
-	Product.find()
-		.select("-photo")
-		.sort([[sortBy, order]])
-		.limit(limit)
-		.exec((error, products) => {
-			if(error){
-				return response.status(400).json({
-					error: 'Products not found'
-				});
-			}
-			response.send(products)
-		})
+	Product.find().select('-photo').sort([ [ sortBy, order ] ]).limit(limit).exec((error, products) => {
+		if (error) {
+			return response.status(400).json({
+				error: 'Products not found'
+			});
+		}
+		response.json(products);
+	});
+};
 
-}
+exports.listRelated = (request, response) => {
+	let limit = request.query.limit ? parseInt(request.query.limit) : 6;
 
+	Product.find({ _id: { $ne: request.product } }).limit(limit).exec((error, products) => {
+		if (error) {
+			return response.status(400).json({
+				error: 'Products not found'
+			});
+		}
+		response.json(products);
+	});
+};
