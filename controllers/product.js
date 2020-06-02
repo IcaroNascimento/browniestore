@@ -145,3 +145,46 @@ exports.listRelated = (request, response) => {
 		response.json(products);
 	});
 };
+
+exports.listBySearch = (request, response) => {
+    let order = request.body.order ? request.body.order : "desc";
+    let sortBy = request.body.sortBy ? request.body.sortBy : "_id";
+    let limit = request.body.limit ? parseInt(request.body.limit) : 100;
+    let skip = parseInt(request.body.skip);
+    let findArgs = {};
+ 
+    // console.log(order, sortBy, limit, skip, request.body.filters);
+    // console.log("findArgs", findArgs);
+ 
+    for (let key in request.body.filters) {
+        if (request.body.filters[key].length > 0) {
+            if (key === "price") {
+                // gte -  greater than price [0-10]
+                // lte - less than
+                findArgs[key] = {
+                    $gte: request.body.filters[key][0],
+                    $lte: request.body.filters[key][1]
+                };
+            } else {
+                findArgs[key] = request.body.filters[key];
+            }
+        }
+    }
+ 
+    Product.find(findArgs)
+        .select("-photo")
+        .sort([[sortBy, order]])
+        .skip(skip)
+        .limit(limit)
+        .exec((error, data) => {
+            if (error) {
+                return response.status(400).json({
+                    error: "Products not found"
+                });
+            }
+            response.json({
+                size: data.length,
+                data
+            });
+        });
+};
