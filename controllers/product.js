@@ -188,3 +188,11 @@ exports.listBySearch = (request, response) => {
             });
         });
 };
+
+exports.photo = (request, response, next) =>{
+	if (request.product.photo.data) {
+		response.set('Content-Type', request.product.photo.contentType)
+		return response.send(request.product.photo.data)
+	}
+	next();
+}
