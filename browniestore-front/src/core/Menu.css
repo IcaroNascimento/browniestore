@@ -1,0 +1,15 @@
+.link {
+	color: #000000;
+}
+.link:hover {
+	color: #707070;
+	text-decoration-line: none;
+}
+
+.icons {
+	color: #000000;
+}
+
+.icons:hover {
+	color: #707070;
+}
