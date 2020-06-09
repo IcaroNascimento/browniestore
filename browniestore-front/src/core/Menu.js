@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Icon from '@material-ui/core/Icon';
 import Logo from './logo.png';
 import './Menu.css';
+import SimpleModal from '../MyModal'
 
 const Menu = () => (
 	<div
@@ -44,9 +45,7 @@ const Menu = () => (
 		</div>
 		<div style={{ display: 'flex', justifyContent: 'right', marginRight: '24px' }}>
 			<div style={{ display: 'flex', justifyContent: 'space-between', width: '64px' }}>
-				<Link to="/signin" className="icons" >
-					<Icon>person</Icon>
-				</Link>
+				<SimpleModal />
 				<Link to="/shop" className="icons">
 					<Icon>shopping_cart</Icon>
 				</Link>

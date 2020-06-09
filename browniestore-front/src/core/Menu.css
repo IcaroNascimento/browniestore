@@ -9,7 +9,7 @@
 .icons {
 	color: #000000;
 }
-
 .icons:hover {
 	color: #707070;
+	cursor: pointer;
 }
