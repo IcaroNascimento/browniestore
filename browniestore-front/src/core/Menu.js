@@ -16,7 +16,7 @@ const Menu = () => (
 	>
 		<div style={{ display: 'flex', justifyContent: 'left', marginLeft: '24px' }}>
 			<div style={{ display: 'flex', justifyContent: 'space-between', width: '150px' }}>
-				<Link to="/" className="link" >
+				<Link to="/" className="link">
 					Início
 				</Link>
 				<Link to="/loja" className="link">
