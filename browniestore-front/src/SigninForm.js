@@ -21,9 +21,12 @@ const useStyles = makeStyles((theme) => ({
 		}
 	},
 	link: {
-		display: 'flex',
-		fontSize: 12
-	}
+		display: 'inline-block',
+		fontSize: 12,
+		clear: 'both',
+    	whiteSpace: 'nowrap'
+
+    }
 }));
 
 export default function SigninForm() {
@@ -41,7 +44,7 @@ export default function SigninForm() {
 				<Link to="/recuperarsenha" className="link">
 					Esqueceu a sua senha?  
 				</Link>
-				<Link to="/criarconta" className="link">
+				<Link to="/criarconta" style = {{marginLeft: 10}}className="link">
 					Criar conta
 				</Link>
 			</div>
