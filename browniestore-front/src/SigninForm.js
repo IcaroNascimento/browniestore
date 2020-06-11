@@ -44,7 +44,7 @@ export default function SigninForm() {
 				<Link to="/recuperarsenha" className="link">
 					Esqueceu a sua senha?  
 				</Link>
-				<Link to="/criarconta" style = {{marginLeft: 10}}className="link">
+				<Link to="/criarconta" style = {{marginLeft: 10}} className="link">
 					Criar conta
 				</Link>
 			</div>
