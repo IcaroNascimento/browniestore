@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal, makeStyles, Icon } from '@material-ui/core';
 import './core/Menu.css';
 import SigninForm from './SigninForm';
+import SignupForm from './SignupForm';
 
 function getModalStyle() {
 	const top = 50;
@@ -19,9 +20,7 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		position: 'absolute',
-		width: 500,
-		height: 300,
+		position: 'absolute',	
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(1, 1, 1)
@@ -56,7 +55,7 @@ export default function SimpleModal() {
 			<Icon onClick={handleClose} className={classes.closeIcon}>
 				clear
 			</Icon>
-			<SigninForm />
+			<SignupForm />
 		</div>
 	);
 
