@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core';
+import { API } from './config'
 
 import SigninModal from './SigninModal';
 
@@ -40,6 +41,30 @@ export default function SignupForm() {
 		success: false
 	});
 
+	const { name, email, password } = values;
+
+	const signup = (user) => {
+		fetch(`${API}/signup`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(user)
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const clickSubmit = (event) => {
+		event.preventDefault();
+		signup({ name, email, password });
+	};
+
 	const handleChange = (name) => (event) => {
 		setValues({ ...values, error: false, [name]: event.target.value });
 	};
@@ -55,13 +80,12 @@ export default function SignupForm() {
 				label="Escolha sua senha"
 				type="password"
 			/>
-			<Button className={classes.button} variant="contained">
+			<Button onClick={clickSubmit} className={classes.button} variant="contained">
 				Criar conta
 			</Button>
 			<div className={classes.link}>
 				<SigninModal />
 			</div>
-			{JSON.stringify(values)}
 		</form>
 	);
 }
