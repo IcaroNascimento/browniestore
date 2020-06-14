@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, makeStyles, Icon } from '@material-ui/core';
 import './core/Menu.css';
-
-import SignupForm from './SignupForm';
+import SigninForm from './SigninForm';
 
 function getModalStyle() {
 	const top = 50;
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function SimpleModal() {
+export default function SigninModal() {
 	const classes = useStyles();
 	// getModalStyle is not a pure function, we roll the style only on the first render
 	const [ modalStyle ] = useState(getModalStyle);
@@ -55,15 +54,15 @@ export default function SimpleModal() {
 			<Icon onClick={handleClose} className={classes.closeIcon}>
 				clear
 			</Icon>
-			<SignupForm />
+			<SigninForm />
 		</div>
 	);
 
 	return (
 		<div>
-			<Icon onClick={handleOpen} className="icons">
-				person
-			</Icon>
+			<div onClick={handleOpen} className="icons">
+				Já possui seu cadastro? Faça seu login.
+			</div>
 			<Modal open={open}>{body}</Modal>
 		</div>
 	);

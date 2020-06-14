@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+
+import SigninModal from './SigninModal';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -43,9 +44,7 @@ export default function SignupForm() {
 				Criar conta
 			</Button>
 			<div className={classes.link}>
-				<Link to="/recuperarsenha" className="link">
-					Já possui cadastro? Faça seu login  
-				</Link>
+				<SigninModal />
 			</div>
 		</form>
 	);
