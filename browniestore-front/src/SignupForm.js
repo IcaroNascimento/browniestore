@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core';
-import { API } from './config'
+import { API } from './config';
 
 import SigninModal from './SigninModal';
 
@@ -41,10 +41,10 @@ export default function SignupForm() {
 		success: false
 	});
 
-	const { name, email, password } = values;
+	const { name, email, password, success, error } = values;
 
 	const signup = (user) => {
-		fetch(`${API}/signup`, {
+		return fetch(`${API}/signup`, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -62,8 +62,33 @@ export default function SignupForm() {
 
 	const clickSubmit = (event) => {
 		event.preventDefault();
-		signup({ name, email, password });
+		signup({ name, email, password }).then((data) => {
+			if (data.error) {
+				setValues({ ...values, error: data.error, success: false });
+			} else {
+				setValues({
+					...values,
+					name: '',
+					email: '',
+					password: '',
+					error: '',
+					success: true
+				});
+			}
+		});
 	};
+
+	const showError = () => (
+		<div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+			{error}
+		</div>
+	);
+
+	const showSuccess = () => (
+		<div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
+			New account is created. Please Signin
+		</div>
+	);
 
 	const handleChange = (name) => (event) => {
 		setValues({ ...values, error: false, [name]: event.target.value });
@@ -72,13 +97,14 @@ export default function SignupForm() {
 	return (
 		<form className={classes.root} noValidate autoComplete="on">
 			<div>Crie sua conta</div>
-			<TextField onChange={handleChange('name')} id="standard-basic" label="Nome completo" />
-			<TextField onChange={handleChange('email')} id="standard-basic" label="Email" />
+			<TextField onChange={handleChange('name')} id="standard-basic" label="Nome completo" value={name} />
+			<TextField onChange={handleChange('email')} id="standard-basic" label="Email" value={email} />
 			<TextField
 				onChange={handleChange('password')}
 				id="standard-basic"
 				label="Escolha sua senha"
 				type="password"
+				value={password}
 			/>
 			<Button onClick={clickSubmit} className={classes.button} variant="contained">
 				Criar conta
@@ -86,6 +112,8 @@ export default function SignupForm() {
 			<div className={classes.link}>
 				<SigninModal />
 			</div>
+			{showSuccess()}
+			{showError()}
 		</form>
 	);
 }
