@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, makeStyles } from '@material-ui/core';
-import { API } from './config';
+import { signup } from './auth';
 
 import SigninModal from './SigninModal';
 
@@ -8,13 +8,16 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		'& > *': {
 			margin: theme.spacing(1, 24),
-			width: '25ch'
+			width: '22ch'
 		}
 	},
 	button: {
+		width: '43ch',
+		position: 'relative',
+		minWidth: 0,
+		flexDirection: 'column',
+		verticalAlign: 'top',
 		fontSize: 10,
-		width: '-webkit-fill-available',
-		marginTop: 24,
 		color: '#FFFFFF',
 		background: '#3E3E3E',
 		'&:hover': {
@@ -42,23 +45,6 @@ export default function SignupForm() {
 	});
 
 	const { name, email, password, success, error } = values;
-
-	const signup = (user) => {
-		return fetch(`${API}/signup`, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(user)
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
 
 	const clickSubmit = (event) => {
 		event.preventDefault();
