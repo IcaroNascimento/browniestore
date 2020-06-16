@@ -17,18 +17,21 @@ function getModalStyle() {
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
+		width: 400,
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		position: 'absolute',	
+		position: 'absolute',
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(1, 1, 1)
 	},
 	closeIcon: {
-		top: `3%`,
-		left: `2%`,
-		position: 'absolute',
+		position: 'fixed',
+		alignSelf: 'auto',
+		left: 'auto',
+		width: '90%',
+		height: '90%',
 		color: '#000000',
 		'&:hover': {
 			color: '#707070'
