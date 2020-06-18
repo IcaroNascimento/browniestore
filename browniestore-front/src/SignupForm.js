@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function SignupForm() {
+export default function SignupForm(props) {
 	const classes = useStyles();
 
 	const [ values, setValues ] = useState({
@@ -46,8 +46,13 @@ export default function SignupForm() {
 
 	const { name, email, password, success, error } = values;
 
+	const handleChange = (name) => (event) => {
+		setValues({ ...values, error: false, [name]: event.target.value });
+	};
+
 	const clickSubmit = (event) => {
 		event.preventDefault();
+		setValues({ ...values, error: false });
 		signup({ name, email, password }).then((data) => {
 			if (data.error) {
 				setValues({ ...values, error: data.error, success: false });
@@ -75,10 +80,6 @@ export default function SignupForm() {
 			New account is created. Please Signin
 		</div>
 	);
-
-	const handleChange = (name) => (event) => {
-		setValues({ ...values, error: false, [name]: event.target.value });
-	};
 
 	return (
 		<form className={classes.root} noValidate autoComplete="on">

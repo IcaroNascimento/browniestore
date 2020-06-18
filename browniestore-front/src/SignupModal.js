@@ -28,10 +28,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	closeIcon: {
 		position: 'fixed',
-		alignSelf: 'auto',
-		left: 'auto',
+		alignSelf: 'end',
 		width: '90%',
-		height: '90%',
 		color: '#000000',
 		'&:hover': {
 			color: '#707070'
